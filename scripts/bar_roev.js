@@ -26,13 +26,15 @@ function rollDice() {
     die6.innerHTML = d6;
     status.innerHTML = "You rolled "+diceTotal+".";
     var diceList = [die1, die2, die3, die4, die5, die6]  
-    diceList.forEach(num => {
-        if ((num == 2 || num == 5)){
-            num.style.color = "lightgray";
+    
+    diceList.forEach(checkValue);
+    
+    function checkValue(value) {
+        if (value == 2) {
+            value.style.backgroundColor = "red";
+        } else if (value != 2) {
+            value.style.backgroundColor = "lightgray";
         }
-        else {
-            num.style.color = "red";
-        }
-            
-    })
+    }
+    
 }
