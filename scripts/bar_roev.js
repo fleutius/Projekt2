@@ -1,3 +1,4 @@
+document.getElementById("button").onclick = rollDice;
 function rollDice() {
     var die1 = document.getElementById("die1");
     var die2 = document.getElementById("die2");
@@ -13,6 +14,8 @@ function rollDice() {
     var d4 = Math.floor(Math.random() * 6) + 1;
     var d5 = Math.floor(Math.random() * 6) + 1;
     var d6 = Math.floor(Math.random() * 6) + 1;
+
+
     var diceTotal = d1 + d2 + d3 + d4 + d5 + d6;
 
     die1.innerHTML = d1;
@@ -22,4 +25,14 @@ function rollDice() {
     die5.innerHTML = d5;
     die6.innerHTML = d6;
     status.innerHTML = "You rolled "+diceTotal+".";
+    var diceList = [die1, die2, die3, die4, die5, die6]  
+    diceList.forEach(num => {
+        if ((num == 2 || num == 5)){
+            num.style.color = "lightgray";
+        }
+        else {
+            num.style.color = "red";
+        }
+            
+    })
 }
