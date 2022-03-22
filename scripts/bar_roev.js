@@ -1,4 +1,3 @@
-
 class Dice {
     constructor(name) {
         this.name = name;
@@ -39,29 +38,25 @@ function rollDice() {
     var d6 = new Dice("d6");
 
     const diceList = [d1, d2, d3, d4, d5, d6];
-    activeDice = []
-    /*
-    for (let i = 0; i < diceList.length; i++) {
+    activeDice = [];
+    prefix = "die";
+
+
+    for (let i = 0; i < diceList.lenght+1; i++) {
         if (diceList[i].locked == false) {
             activeDice.push(diceList[i]);
-            diceList[i].rollDie();
-            this["die"+i] = document.getElementById("die"+i);
-            this["die"+i].innerHTML = diceList[i].value;
+            diceList[i].rollDie;
+            var temp = document.getElementById("die"+i);
+            temp.innerHTML = diceList[i].value;
         }
-        else {            diceList[i].rollDie();
+        else {
+            diceList[i].rollDie();
             this["die"+i] = document.getElementById("die"+i);
             this["die"+i].innerHTML = diceList[i].value;}
 
 
     }
-*/
-    diceList.forEach(function(value){
-        if (value.locked == false){
-            value.rollDie();
-            id = value.name;
-            document.write(id);
-        }
-    })
+
 }
    
     /*
