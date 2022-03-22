@@ -1,3 +1,26 @@
+class Dice {
+    constructor(name) {
+        this.name = name;
+        this.locked = false;
+        this.value ;
+
+    }
+
+    // Dice toggle method
+    toggle() {
+        this.locked = !this.locked;
+    }
+
+    showSelf() {
+        console.log(this.locked);
+    }
+        
+}
+
+var die1 = new Dice('die1');
+die1.showSelf;
+
+/*
 document.getElementById("button").onclick = rollDice;
 function rollDice() {
     var die1 = document.getElementById("die1");
@@ -27,14 +50,22 @@ function rollDice() {
     status.innerHTML = "You rolled "+diceTotal+".";
     var diceList = [die1, die2, die3, die4, die5, die6]  
     
-    diceList.forEach(checkValue);
-    
-    function checkValue(value) {
-        if (value == 2) {
-            value.style.backgroundColor = "red";
-        } else if (value != 2) {
-            value.style.backgroundColor = "lightgray";
+    function checkValue {
+        var el;
+        var prefix = 'die';
+        for (var i = 0; el = document.getElementById(prefix + i); ++1) {
+
         }
     }
+
+    diceList.forEach(checkValue);
     
+    function checkValue(item) {
+        if (item == 2) {
+            item.style.backgroundColor = "red";
+        } else if (working != 2) {
+            item.style.backgroundColor = "lightgray";
+        }
+    }
+    */
 }
