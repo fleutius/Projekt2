@@ -1,70 +1,70 @@
-
-class Dice {
-    constructor(name) {
-        this.name = name;
-        this.locked = false;
-        this.value = 0;
-
-    }
- 
-    // Dice toggle method
-    toggle() {
-        this.locked = !this.locked;
-    }
-
-    showSelf() {
-        return this.locked;
-    }
-
-    rollDie() {
-        if (this.locked == false) {
-            return this.value = Math.floor(Math.random() * 6) + 1;
-        }
-    }
-
-    getValue() {
-        return this.value;
-    }
-        
-}
-var die1 = document.getElementById("die1");
-var die2 = document.getElementById("die2");
-var die3 = document.getElementById("die3");
-var die4 = document.getElementById("die4");
-var die5 = document.getElementById("die5");
-var die6 = document.getElementById("die6");
+var activeDice = document.getElementsByClassName("activeDice");
+var inactiveDice = document.getElementsByClassName("inactiveDice");
 var status = document.getElementById("status");
-var d1 = new Dice("d1");
-var d2 = new Dice("d2");
-var d3 = new Dice("d3");
-var d4 = new Dice("d4");
-var d5 = new Dice("d5");
-var d6 = new Dice("d6");
-var totalSum = 0;
+var totalScore = 0
 
 
-
-
+function clearDice() {
+    var inactiveDice = document.getElementsByClassName("inactiveDice");
+    var tempd1 = document.getElementById("die1");
+    var tempd2 = document.getElementById("die2");
+    var tempd3 = document.getElementById("die3");
+    var tempd4 = document.getElementById("die4");
+    var tempd5 = document.getElementById("die5");
+    var tempd6 = document.getElementById("die6");
+    tempd1.className="activeDice";
+    tempd1.innerHTML="0";
+    tempd2.className="activeDice";
+    tempd2.innerHTML="0";
+    tempd3.className="activeDice";
+    tempd3.innerHTML="0";
+    tempd4.className="activeDice";
+    tempd4.innerHTML="0";
+    tempd5.className="activeDice";
+    tempd5.innerHTML="0";
+    tempd6.className="activeDice";
+    tempd6.innerHTML="0";
+    totalScore = 0;
+    status3.innerHTML="nyt spil startet";
+}
 
 function rollDice() { 
-    var turnRolls = []
-    var die1 = document.getElementById("die1");
-    var die2 = document.getElementById("die2");
-    var die3 = document.getElementById("die3");
-    var die4 = document.getElementById("die4");
-    var die5 = document.getElementById("die5");
-    var die6 = document.getElementById("die6");
+    var turnRolls = [];
+    var turnScore = 0;
+    var activeDice = document.getElementsByClassName("activeDice");
+    var inactiveDice = document.getElementsByClassName("inactiveDice");
     var status = document.getElementById("status");
     var status2 = document.getElementById("status2");
     var status3 = document.getElementById("status3");
-    var activeDice = [d1.name, d2.name, d3.name, d4.name, d5.name, d6.name]
-    for (let i = 0; i < activeDice.length; i++) {
-        if (activeDice[i].locked==false){
-            var usableDice = [] + activeDice[i]; 
+    for (let i = activeDice.length-1; i >= 0; i--) {
+        d = Math.floor(Math.random() * 6) + 1;
+        activeDice[i].innerHTML=d;
+        if (d == 2 || d == 5){
+            activeDice[i].className="inactiveDice";
         }
+        turnRolls.push(d); 
     }
+    if (turnRolls.includes(2)) {
+        turnScore = 0;
+    }
+    else if (turnRolls.includes(5)){
+        turnScore = 0;
+    }
+    else {
+        for (let i = 0; i < turnRolls.length; i++) {
+            turnScore += turnRolls[i];
+        }
+        totalScore += turnScore;
+        turnScore = 0;
+        status3.innerHTML=totalScore;
+    }
+    if (activeDice.length == 0) {
+        status3.innerHTML='The turn has ended you got a total of' + ' ' + totalScore + ' ' + 'points';
+        return totalScore;
+    }
+}
 
-    }
+/*
         d1.rollDie();
         if (d1.value == 2 || d1.value == 5){
             d1.locked = true;
