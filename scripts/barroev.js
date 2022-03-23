@@ -3,9 +3,7 @@ var inactiveDice = document.getElementsByClassName("inactiveDice");
 var status = document.getElementById("status");
 var totalScore = 0
 
-
 function clearDice() {
-    var inactiveDice = document.getElementsByClassName("inactiveDice");
     var tempd1 = document.getElementById("die1");
     var tempd2 = document.getElementById("die2");
     var tempd3 = document.getElementById("die3");
@@ -25,7 +23,8 @@ function clearDice() {
     tempd6.className="activeDice";
     tempd6.innerHTML="0";
     totalScore = 0;
-    status3.innerHTML="nyt spil startet";
+    status3.innerHTML=""
+    status2.innerHTML="nyt spil startet";
 }
 
 function rollDice() { 
@@ -36,6 +35,7 @@ function rollDice() {
     var status = document.getElementById("status");
     var status2 = document.getElementById("status2");
     var status3 = document.getElementById("status3");
+    status2.innerHTML=""
     for (let i = activeDice.length-1; i >= 0; i--) {
         d = Math.floor(Math.random() * 6) + 1;
         activeDice[i].innerHTML=d;
