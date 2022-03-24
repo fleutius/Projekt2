@@ -1,0 +1,119 @@
+var activeDice = document.getElementsByClassName(&quot;activeDice&quot;);
+var inactiveDice = document.getElementsByClassName(&quot;inactiveDice&quot;);
+var totalScore = 0;
+var player1Name = window.prompt(&quot;indtast navn til spiller 1: &quot;);
+var player2Name = window.prompt(&quot;indtast navn til spiller 2: &quot;);
+var player1Score = 0;
+var player2Score = 0;
+let player = &quot;p1&quot;;
+const scoreLimit = 50;
+
+function getVariables (){
+    var status = document.getElementById(&quot;status&quot;);
+    var status2 = document.getElementById(&quot;status2&quot;);
+    var status3 = document.getElementById(&quot;status3&quot;);
+}
+
+function activePlayerName (currentPlayer){
+    if (currentPlayer === &quot;p1&quot;) {
+        return player1Name;
+    } 
+    else if (currentPlayer === &quot;p2&quot;) {
+        return player2Name;
+    }
+}
+
+function activePlayerScore (currentPlayer){
+    if (currentPlayer === &quot;p1&quot;) {
+        return player1Score;
+    } 
+    else if (currentPlayer === &quot;p2&quot;) {
+        return player2Score;
+    }
+}
+
+
+function switchPlayer(currentPlayer) {
+    if (currentPlayer === &quot;p1&quot;) {
+      player = &quot;p2&quot;;
+    } 
+    else {
+      player = &quot;p1&quot;;
+    }
+  }
+
+function nextTurn() {
+    if (totalScore &lt; scoreLimit){
+        switchPlayer(player);
+        clearDice();
+    }    
+}
+
+function clearDice() {
+    getVariables();
+    var tempd1 = document.getElementById(&quot;die1&quot;);
+    var tempd2 = document.getElementById(&quot;die2&quot;);
+    var tempd3 = document.getElementById(&quot;die3&quot;);
+    var tempd4 = document.getElementById(&quot;die4&quot;);
+    var tempd5 = document.getElementById(&quot;die5&quot;);
+    var tempd6 = document.getElementById(&quot;die6&quot;);
+    tempd1.className=&quot;activeDice&quot;;
+    tempd1.innerHTML=&quot;0&quot;;
+    tempd2.className=&quot;activeDice&quot;;
+    tempd2.innerHTML=&quot;0&quot;;
+    tempd3.className=&quot;activeDice&quot;;
+    tempd3.innerHTML=&quot;0&quot;;
+    tempd4.className=&quot;activeDice&quot;;
+    tempd4.innerHTML=&quot;0&quot;;
+    tempd5.className=&quot;activeDice&quot;;
+    tempd5.innerHTML=&quot;0&quot;;
+    tempd6.className=&quot;activeDice&quot;;
+    tempd6.innerHTML=&quot;0&quot;;
+    totalScore = 0;
+    status3.innerHTML=&quot; &quot;
+    status2.innerHTML=&quot; &quot;;
+}
+
+function rollDice() { 
+    getVariables();
+    var turnRolls = [];
+    var turnScore = 0;
+    for (let i = activeDice.length-1; i &gt;= 0; i--) {
+        d = Math.floor(Math.random() * 6) + 1;
+        activeDice[i].innerHTML=d;
+        if (d == 2 || d == 5){
+            activeDice[i].className=&quot;inactiveDice&quot;;
+        }
+        turnRolls.push(d); 
+    }
+    if (turnRolls.includes(2)) {
+        turnScore = 0;
+    }
+    else if (turnRolls.includes(5)){
+        turnScore = 0;
+    }
+    else {
+        for (let i = 0; i &lt; turnRolls.length; i++) {
+            turnScore += turnRolls[i];
+        }
+        totalScore += turnScore;
+        turnScore = 0;
+        status3.innerHTML= activePlayerName(player) + &quot; score: &quot; + totalScore;
+    }
+    if (activeDice.length == 0) {
+        status3.innerHTML=&quot;The turn has ended you got a total of&quot; + &quot; &quot; + totalScore + &quot; &quot; + &quot;points&quot;;
+        if (player == &quot;p1&quot;){
+            player1Score += totalScore; 
+        }
+        else if (player == &quot;p2&quot;){
+            player2Score += totalScore;
+        }
+
+        return totalScore;
+    }
+}
+
+function barroev () {
+
+}
+

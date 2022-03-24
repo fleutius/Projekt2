@@ -6,23 +6,198 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <title>Projektopgave 2 Elisabeth & Flemming</title>
         <link rel="stylesheet" href="/stylesheets/style.css"/>
+
         <script src="/scripts/barroev.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.5.0/styles/github-dark.min.css">
+        <script src="https://unpkg.com/@highlightjs/cdn-assets@11.5.0/highlight.min.js"></script>
         
     </head>
     <body>
+        <script>hljs.highlightAll();</script>
         <div id="game">
-            <button onclick="rollDice()">Roll Dice</button>
-            <button onclick="clearDice()">Start forfra</button>
-            <div id="die1" class="activeDice">0</div>
-            <div id="die2" class="activeDice">0</div>
-            <div id="die3" class="activeDice">0</div>
-            <div id="die4" class="activeDice">0</div>
-            <div id="die5" class="activeDice">0</div>
-            <div id="die6" class="activeDice">0</div>
-            <h2 id="status" style="clear:left;"></h2>
-            <h2 id="status2" style="clear:left;"></h2>
-            <h2 id="status3" style="clear:left;"></h2>
+            <h1>Bar Røv - brug knapperne til at spille</h1>
+            <div id="buttons">
+                <button id="rollBtn" onclick="rollDice()">Roll Dice</button>
+                <button id="nextBtn" onclick="nextTurn()">Next Turn</button>
+                <button id="clearBtn" onclick="newGame()">Start forfra</button>
+            </div>
+            <h3 id="activeTurnMsg" class="message" style="clear:left;"></h2>
+            <h3 id="roundScoreMsg" class="message" style="clear:left;"></h2>
+            <div id="diceObjects">
+                <div id="die1" class="activeDice">0</div>
+                <div id="die2" class="activeDice">0</div>
+                <div id="die3" class="activeDice">0</div>
+                <div id="die4" class="activeDice">0</div>
+                <div id="die5" class="activeDice">0</div>
+                <div id="die6" class="activeDice">0</div>
+            </div>
+            <h3 id="p1ScoreMsg" class="message" style="clear:left;"></h2>
+            <h3 id="p2ScoreMsg" class="message" style="clear:left;"></h2>
+            <h3 id="status" class="message" style="clear:left;"></h2>
         </div>
+        <div id="code">
+            <h2>Bar Røv - HTML</h2>
+            <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;/&gt;
+        &lt;title&gt;Projektopgave 2 Elisabeth &amp;Flemming&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;/stylesheets/style.css&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css&quot;&gt;
+        &lt;script src=&quot;/scripts/barroev.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js&quot;&gt;&lt;/script&gt;
         
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;game&quot;&gt;
+            &lt;h1&gt;Bar Røv - brug knapperne til at spille&lt;/h1&gt;
+            &lt;div id=&quot;buttons&quot;&gt;
+                &lt;button onclick=&quot;rollDice()&quot;&gt;Roll Dice&lt;/button&gt;
+                &lt;button onclick=&quot;nextTurn()&quot;&gt;Next Turn&lt;/button&gt;
+                &lt;button onclick=&quot;clearDice()&quot;&gt;Start forfra&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;diceObjects&quot;&gt;
+                &lt;div id=&quot;die1&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+                &lt;div id=&quot;die2&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+                &lt;div id=&quot;die3&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+                &lt;div id=&quot;die4&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+                &lt;div id=&quot;die5&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+                &lt;div id=&quot;die6&quot; class=&quot;activeDice&quot;&gt;0&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h2 id=&quot;status&quot; style=&quot;clear:left;&quot;&gt;&lt;/h2&gt;
+            &lt;h2 id=&quot;status2&quot; style=&quot;clear:left;&quot;&gt;&lt;/h2&gt;
+            &lt;h2 id=&quot;status3&quot; style=&quot;clear:left;&quot;&gt;&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;code&quot;&gt;
+            &lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;...&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <h2>Bar Røv - Javascript</h2>
+                <pre><code class="language-js">
+var activeDice = document.getElementsByClassName(&quot;activeDice&quot;);
+var inactiveDice = document.getElementsByClassName(&quot;inactiveDice&quot;);
+var totalScore = 0;
+var player1Name = window.prompt(&quot;indtast navn til spiller 1: &quot;);
+var player2Name = window.prompt(&quot;indtast navn til spiller 2: &quot;);
+var player1Score = 0;
+var player2Score = 0;
+let player = &quot;p1&quot;;
+const scoreLimit = 50;
+
+function getVariables (){
+    var status = document.getElementById(&quot;status&quot;);
+    var status2 = document.getElementById(&quot;status2&quot;);
+    var status3 = document.getElementById(&quot;status3&quot;);
+}
+
+function activePlayerName (currentPlayer){
+    if (currentPlayer === &quot;p1&quot;) {
+        return player1Name;
+    } 
+    else if (currentPlayer === &quot;p2&quot;) {
+        return player2Name;
+    }
+}
+
+function activePlayerScore (currentPlayer){
+    if (currentPlayer === &quot;p1&quot;) {
+        return player1Score;
+    } 
+    else if (currentPlayer === &quot;p2&quot;) {
+        return player2Score;
+    }
+}
+
+
+function switchPlayer(currentPlayer) {
+    if (currentPlayer === &quot;p1&quot;) {
+        player = &quot;p2&quot;;
+    } 
+    else {
+        player = &quot;p1&quot;;
+    }
+    }
+
+function nextTurn() {
+    if (totalScore &lt; scoreLimit){
+        switchPlayer(player);
+        clearDice();
+    }    
+}
+
+function clearDice() {
+    getVariables();
+    var tempd1 = document.getElementById(&quot;die1&quot;);
+    var tempd2 = document.getElementById(&quot;die2&quot;);
+    var tempd3 = document.getElementById(&quot;die3&quot;);
+    var tempd4 = document.getElementById(&quot;die4&quot;);
+    var tempd5 = document.getElementById(&quot;die5&quot;);
+    var tempd6 = document.getElementById(&quot;die6&quot;);
+    tempd1.className=&quot;activeDice&quot;;
+    tempd1.innerHTML=&quot;0&quot;;
+    tempd2.className=&quot;activeDice&quot;;
+    tempd2.innerHTML=&quot;0&quot;;
+    tempd3.className=&quot;activeDice&quot;;
+    tempd3.innerHTML=&quot;0&quot;;
+    tempd4.className=&quot;activeDice&quot;;
+    tempd4.innerHTML=&quot;0&quot;;
+    tempd5.className=&quot;activeDice&quot;;
+    tempd5.innerHTML=&quot;0&quot;;
+    tempd6.className=&quot;activeDice&quot;;
+    tempd6.innerHTML=&quot;0&quot;;
+    totalScore = 0;
+    status3.innerHTML=&quot; &quot;
+    status2.innerHTML=&quot; &quot;;
+}
+
+function rollDice() { 
+    getVariables();
+    var turnRolls = [];
+    var turnScore = 0;
+    for (let i = activeDice.length-1; i &gt;= 0; i--) {
+        d = Math.floor(Math.random() * 6) + 1;
+        activeDice[i].innerHTML=d;
+        if (d == 2 || d == 5){
+            activeDice[i].className=&quot;inactiveDice&quot;;
+        }
+        turnRolls.push(d); 
+    }
+    if (turnRolls.includes(2)) {
+        turnScore = 0;
+    }
+    else if (turnRolls.includes(5)){
+        turnScore = 0;
+    }
+    else {
+        for (let i = 0; i &lt; turnRolls.length; i++) {
+            turnScore += turnRolls[i];
+        }
+        totalScore += turnScore;
+        turnScore = 0;
+        status3.innerHTML= activePlayerName(player) + &quot; score: &quot; + totalScore;
+    }
+    if (activeDice.length == 0) {
+        status3.innerHTML=&quot;The turn has ended you got a total of&quot; + &quot; &quot; + totalScore + &quot; &quot; + &quot;points&quot;;
+        if (player == &quot;p1&quot;){
+            player1Score += totalScore; 
+        }
+        else if (player == &quot;p2&quot;){
+            player2Score += totalScore;
+        }
+
+        return totalScore;
+    }
+}
+
+function barroev () {
+
+}
+
+</code>
+        </div>
     </body>
 </html>
