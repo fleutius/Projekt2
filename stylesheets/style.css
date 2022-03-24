@@ -53,5 +53,6 @@ div.inactiveDice{
 }
 
 pre{
+	min-width: 60%;
 	max-width: 60%;
 }
